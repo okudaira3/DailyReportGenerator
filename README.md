@@ -1,0 +1,2 @@
+# DailyReportGenerator
+グーグル可憐だから予定をとってくるよ
