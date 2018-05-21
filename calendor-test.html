@@ -135,14 +135,16 @@
                 end = event.end.date;
               }
 				
-				when = formatDate(new Date(when),'MM月DD日 hh:mm');
-				var tempStart = formatDate(new Date(when),'MM月DD日');
-				var tempEnd = formatDate(new Date(end),'MM月DD日');
 				
+				var tempStart = formatDate(new Date(when),'m月d日');
+				var tempEnd = formatDate(new Date(end),'m月d日');
+				
+                when = formatDate(new Date(when),'m月d日（ww） hh:mm');
+              
 				if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
 				   end = formatDate(new Date(when),'hh:mm');
 				} else {
-					end = formatDate(new Date(end),'MM月DD日 hh:mm');
+					end = formatDate(new Date(end),'m月d日（ww） hh:mm');
 				}
 				
               appendPre( when + ' ～ ' + end + '     '+ event.summary);
@@ -154,21 +156,53 @@
       }
 
 		
-		var formatDate = function (date, format) {
-		  if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
-		  format = format.replace(/YYYY/g, date.getFullYear());
-		  format = format.replace(/MM/g, ('0' + (date.getMonth() + 1)).slice(-2));
-		  format = format.replace(/DD/g, ('0' + date.getDate()).slice(-2));
-		  format = format.replace(/hh/g, ('0' + date.getHours()).slice(-2));
-		  format = format.replace(/mm/g, ('0' + date.getMinutes()).slice(-2));
-		  format = format.replace(/ss/g, ('0' + date.getSeconds()).slice(-2));
-		  if (format.match(/S/g)) {
-			var milliSeconds = ('00' + date.getMilliseconds()).slice(-3);
-			var length = format.match(/S/g).length;
-			for (var i = 0; i < length; i++) format = format.replace(/S/, milliSeconds.substring(i, i + 1));
-		  }
-		  return format;
-		};		
+      //日付を整形
+      var formatDate = function(date, formatText){
+          var ret = formatText;
+          var weekDayLabel = ['日','月','火','水','木','金','土',];
+          try{
+              if(date){
+                  date = new Date(date);	//文字列型で渡される場合があるので、Date型に変換
+              }else{
+                  return '';
+              }
+
+              date.yyyy = date.getFullYear();
+              date.m = date.getMonth() + 1;
+              date.mm = ('0' + date.m).slice(-2);
+              date.d = date.getDate();
+              date.dd = ('0' + date.d).slice(-2);
+              date.w = date.getDay();	//曜日（0～6）
+              date.ww = weekDayLabel[date.w];	//曜日（日～土）
+              date.H = date.getHours();
+              date.HH = ('0' + date.H).slice(-2);
+              date.M = date.getMinutes();
+              date.MM = ('0' + date.M).slice(-2);
+              date.S = date.getSeconds();
+              date.SS = ('0' + date.S).slice(-2);
+
+              ret = ret.split('yyyy').join(date.yyyy);
+              ret = ret.split('mm').join(date.mm);
+              ret = ret.split('m').join(date.m);
+              ret = ret.split('dd').join(date.dd);
+              ret = ret.split('d').join(date.d);
+              ret = ret.split('ww').join(date.ww);
+              ret = ret.split('w').join(date.w);
+              ret = ret.split('HH').join(date.HH);
+              ret = ret.split('H').join(date.H);
+              ret = ret.split('MM').join(date.MM);
+              ret = ret.split('M').join(date.M);
+              ret = ret.split('SS').join(date.SS);
+              ret = ret.split('S').join(date.S);
+
+              return ret;
+
+          }catch(err){
+              alert('app.formatDate' + '\n' + err.message);
+          }finally{
+
+          }
+      };	
 		
     </script>
 
