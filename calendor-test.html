@@ -133,15 +133,15 @@
                 end = event.end.date;
               }
 				
-              var tempStart = formatDate(new Date(when),'m月d日');
-              var tempEnd = formatDate(new Date(end),'m月d日');
+              var tempStart = formatDate(new Date(when),'mm月dd日');
+              var tempEnd = formatDate(new Date(end),'mm月dd日');
 
-              when = formatDate(new Date(when),'m月d日（ww）HH:MM');
+              when = formatDate(new Date(when),'mm月dd日（ww）HH:MM');
 
               if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
-                end = formatDate(new Date(when),'HH:MM');
+                end = formatDate(new Date(end),'HH:MM');
               } else {
-                end = formatDate(new Date(end),'m月d日（ww）HH:MM');
+                end = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
               }
 				
               appendPre( when + ' ～ ' + end + '     '+ event.summary);
