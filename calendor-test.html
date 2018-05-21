@@ -10,14 +10,16 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  </head>
   <body>
-    <p>Google Calendar API</p>
+	<div class='container'>
+      <p>Google Calendar API</p>
 
-    <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize-button" type="button" class="btn btn-primary" style="display: none;">google login</button>
-    <button id="signout-button" type="button" class="btn btn-secondary" style="display: none;">log Out</button>
+      <!--Add buttons to initiate auth sequence and sign out-->
+      <button id="authorize-button" type="button" class="btn btn-primary" style="display: none;">google login</button>
+      <button id="signout-button" type="button" class="btn btn-secondary" style="display: none;">log Out</button>
 
-    <pre id="content"></pre>
-
+      <pre id="content"></pre>
+	</div> 
+    
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '686773253686-sfaav9jvk1i4l603k9c394d86tlorhoj.apps.googleusercontent.com';
@@ -143,7 +145,7 @@
 					end = formatDate(new Date(end),'MM月DD日 hh:mm');
 				}
 				
-              appendPre( when ' ～ ' + end + '     '+ event.summary);
+              appendPre( when + ' ～ ' + end + '     '+ event.summary);
             }
           } else {
             appendPre('予定を見つけられませんでした。');
