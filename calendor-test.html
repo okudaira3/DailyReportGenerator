@@ -14,8 +14,8 @@
       <p>Google Calendar API</p>
 
       <!--Add buttons to initiate auth sequence and sign out-->
-      <button id="authorize-button" type="button" class="btn btn-primary" style="display: none;">google login</button>
-      <button id="signout-button" type="button" class="btn btn-secondary" style="display: none;">log Out</button>
+      <button id="authorize-button" type="button" class="btn btn-primary" style="margin:10px; display: none;">google login</button>
+      <button id="signout-button" type="button" class="btn btn-secondary" style="margin:10px;display: none;">log Out</button>
 
       <pre id="content"></pre>
 	</div> 
@@ -120,9 +120,7 @@
         }).then(function(response) {
           var events = response.result.items;
           if (events.length > 0) {
-		    appendPre('これからの予定:');
-			console.log(JSON.stringify(events[0]));
-			  
+		      
             for (i = 0; i < events.length; i++) {
               var event = events[i];
               var when = event.start.dateTime;
@@ -135,17 +133,16 @@
                 end = event.end.date;
               }
 				
-				
-				var tempStart = formatDate(new Date(when),'m月d日');
-				var tempEnd = formatDate(new Date(end),'m月d日');
-				
-                when = formatDate(new Date(when),'m月d日（ww） hh:mm');
-              
-				if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
-				   end = formatDate(new Date(when),'hh:mm');
-				} else {
-					end = formatDate(new Date(end),'m月d日（ww） hh:mm');
-				}
+              var tempStart = formatDate(new Date(when),'m月d日');
+              var tempEnd = formatDate(new Date(end),'m月d日');
+
+              when = formatDate(new Date(when),'m月d日（ww）HH:MM');
+
+              if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
+                end = formatDate(new Date(when),'HH:MM');
+              } else {
+                end = formatDate(new Date(end),'m月d日（ww）HH:MM');
+              }
 				
               appendPre( when + ' ～ ' + end + '     '+ event.summary);
             }
