@@ -109,7 +109,10 @@ function listUpcomingEvents() {
     condition.timeMin = (new Date()).toISOString();
   }
   if(endDate){
-    condition.timeMax = (new Date(endDate).setHours(23).setMinutes(59)).toISOString();
+    var endTime = new Date(endDate);
+    endTime = endTime.setHours(23);
+    endTime = endTime.setMinutes(59);
+    condition.timeMax = (endTime).toISOString();
   }
 
   gapi.client.calendar.events.list(condition).then(function(response) {
