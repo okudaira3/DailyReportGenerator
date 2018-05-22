@@ -13,7 +13,7 @@ var getCalendarButton = document.getElementById('get-calendar-button');
  *  On load, called to load the auth2 library and API client library.
  */
 function handleClientLoad() {
-  
+
   CLIENT_ID = '686773253686-sfaav9jvk1i4l603k9c394d86tlorhoj.apps.googleusercontent.com';
   API_KEY = 'AIzaSyCc_MmF8KxOgjJgkffQEhXKZiF68VPdV7Y';
   // Array of API discovery doc URLs for APIs used by the quickstart
@@ -24,7 +24,7 @@ function handleClientLoad() {
   authorizeButton = document.getElementById('authorize-button');
   signoutButton = document.getElementById('signout-button');
   getCalendarButton = document.getElementById('get-calendar-button');
-  
+
   gapi.load('client:auth2', initClient);
 }
 /**
@@ -113,6 +113,11 @@ function listUpcomingEvents() {
   }
 
   gapi.client.calendar.events.list(condition).then(function(response) {
+    // 前回分の除去
+    var element = document.getElementById('content');
+    element.textContent = null;
+
+
     var events = response.result.items;
     if (events.length > 0) {
 
@@ -136,7 +141,6 @@ function listUpcomingEvents() {
         } else {
           end = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
         }
-
         appendPre( when + ' ～ ' + end + '  '+ event.summary);
       }
     } else {

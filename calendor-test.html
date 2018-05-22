@@ -24,7 +24,7 @@
 
       <!--Add buttons to initiate auth sequence and sign out-->
       <button id="authorize-button" type="button" class="btn btn-primary" style="margin:10px; display: none;">google login</button>
-      <button id="signout-button" type="button" class="btn btn-secondary" style="margin:10px;display: none;">log Out</button>
+      <button id="signout-button" type="button" class="btn btn-secondary" style="margin:10px;display: none;">Log Out</button>
 
       <div class="flex-container">
         <span class="start-date-wrapper">開始
@@ -33,7 +33,7 @@
         <span class="end-date-wrapper">終了
           <input id="end-date" class="form-control"  type="date">
         </span>
-        <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">log Out</button>
+        <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
       </div>
 
       <pre id="content"></pre>
@@ -43,7 +43,7 @@
     </script>
 
     <script >
-      window.onload  = handleClientLoad();
+      window.onload(handleClientLoad);
     </script>
 
   </body>
