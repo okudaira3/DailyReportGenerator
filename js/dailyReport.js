@@ -99,7 +99,7 @@ function listUpcomingEvents() {
     'calendarId': 'primary',
     'showDeleted': false,
     'singleEvents': true,
-    'maxResults': 100,
+    'maxResults': 1000,
     'orderBy': 'startTime'
   };
 
@@ -109,7 +109,7 @@ function listUpcomingEvents() {
     condition.timeMin = (new Date()).toISOString();
   }
   if(endDate){
-    condition.timeMax = (new Date(endDate)).toISOString();
+    condition.timeMax = (new Date(endDate).setHours(23).setMinutes(59)).toISOString();
   }
 
   gapi.client.calendar.events.list(condition).then(function(response) {
