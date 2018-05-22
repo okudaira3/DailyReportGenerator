@@ -110,8 +110,8 @@ function listUpcomingEvents() {
   }
   if(endDate){
     var endTime = new Date(endDate);
-    endTime = endTime.setHours(23);
-    endTime = endTime.setMinutes(59);
+    endTime = new Date(endTime.setHours(23));
+    endTime = new Date(endTime.setMinutes(59));
     condition.timeMax = (endTime).toISOString();
   }
 
