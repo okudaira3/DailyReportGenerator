@@ -26,13 +26,14 @@
       <button id="authorize-button" type="button" class="btn btn-primary" style="margin:10px; display: none;">google login</button>
       <button id="signout-button" type="button" class="btn btn-secondary" style="margin:10px;display: none;">log Out</button>
 
-      <div>
-        <span>開始：
-          <input id="startDate" class="form-control"  type="date">
+      <div class="flex-container">
+        <span class="start-date-wrapper">開始
+          <input id="start-date" class="form-control"  type="date">
         </span>
-        <span>～ 終了：
-          <input id="endDate" class="form-control"  type="date">
+        <span class="end-date-wrapper">終了
+          <input id="end-date" class="form-control"  type="date">
         </span>
+        <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">log Out</button>
       </div>
 
       <pre id="content"></pre>
@@ -41,5 +42,6 @@
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
+      window.onload(handleClientLoad);
     </script>
   </body>

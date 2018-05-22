@@ -79,14 +79,28 @@ function appendPre(message) {
  * appropriate message is printed.
  */
 function listUpcomingEvents() {
-  gapi.client.calendar.events.list({
+
+  var starDate = document.getElementById('start-date').value;
+  var endDate = document.getElementById('end-date').value;
+
+  var condition = {
     'calendarId': 'primary',
-    'timeMin': (new Date()).toISOString(),
     'showDeleted': false,
     'singleEvents': true,
     'maxResults': 100,
     'orderBy': 'startTime'
-  }).then(function(response) {
+  };
+
+  if(starDate){
+    condition.timeMin = (new Date(starDate)).toISOString();
+  } else {
+    condition.timeMin = (new Date()).toISOString();
+  }
+  if(endDate){
+    condition.timeMax = (new Date(endDate)).toISOString();
+  }
+
+  gapi.client.calendar.events.list(condition).then(function(response) {
     var events = response.result.items;
     if (events.length > 0) {
 
