@@ -13,6 +13,18 @@ var getCalendarButton = document.getElementById('get-calendar-button');
  *  On load, called to load the auth2 library and API client library.
  */
 function handleClientLoad() {
+  
+  CLIENT_ID = '686773253686-sfaav9jvk1i4l603k9c394d86tlorhoj.apps.googleusercontent.com';
+  API_KEY = 'AIzaSyCc_MmF8KxOgjJgkffQEhXKZiF68VPdV7Y';
+  // Array of API discovery doc URLs for APIs used by the quickstart
+  DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+  // Authorization scopes required by the API; multiple scopes can be
+  // included, separated by spaces.
+  SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+  authorizeButton = document.getElementById('authorize-button');
+  signoutButton = document.getElementById('signout-button');
+  getCalendarButton = document.getElementById('get-calendar-button');
+  
   gapi.load('client:auth2', initClient);
 }
 /**
