@@ -127,9 +127,8 @@ function listUpcomingEvents() {
 
   gapi.client.calendar.events.list(condition).then(function(response) {
     // 前回分の除去
-    var element = document.getElementById('content');
+    var element = document.getElementById('plan-content');
     element.textContent = null;
-
 
     var events = response.result.items;
     if (events.length > 0) {
@@ -198,6 +197,10 @@ function getCondeition(starDate,endDate){
 }
 
 function getAppointment(){
+  // 前回分の除去
+  var element = document.getElementById('candidate-content');
+  element.textContent = null;
+  
   var candidate = generateTerm();
   candidate = pickupDate(candidate);
   getFreeTime(candidate);
@@ -392,6 +395,9 @@ function getFreeTime(candidate){
   blockTime = blockTime / INTERVAL_MINUTE; // 何分以上のまとまった時間がいるか？
   var timeIndex = 0;
 
+  var startTimeArray = [];
+  var endTimeArray = [];
+  
   for (var day in candidate) {
     timeIndex = 0;
     for (var time in candidate[day]) {
@@ -400,11 +406,13 @@ function getFreeTime(candidate){
 
       if(candidate[day][time] == IS_FREE && lastTimeIsFree == HAS_PLAN ){ // 「予定あり」から「なし」に変わったとき(つまり空き時間の開始)
         if(hasBlockTIme(candidate[day],timeIndex,blockTime,true)){
-            console.log('** 0 ' + day.toString()  + time.toString());
+            // console.log('** 0 ' + day.toString()  + time.toString());
+            startTimeArray.push( day.toString()  + time.toString());
         }
       } else if(candidate[day][time] == HAS_PLAN && lastTimeIsFree == IS_FREE){ // 「予定なし」から「あり」に変わったとき(つまり空き時間の終了)
         if(hasBlockTIme(candidate[day],timeIndex,blockTime,false)){
-            console.log('**+1 ' + day.toString()  + time.toString());
+            // console.log('**+1 ' + day.toString()  + time.toString());
+            endTimeArray.push( time.toString());
         }
       }
 
@@ -413,11 +421,17 @@ function getFreeTime(candidate){
     }
 
     if(lastTimeIsFree) {
-        console.log('***1 ' + day.toString()  + time.toString());
+        // console.log('***1 ' + day.toString()  + time.toString());
+        endTimeArray.push( time.toString());
         lastTimeIsFree = null;
     }
 
   }
+
+  for (var i = 0; i <= startTimeArray.length; i++ ) {
+    appendPre('candidate-content', startTimeArray[i] + ' ～ ' + endTimeArray[i]);
+  }
+  
 
 }
 
