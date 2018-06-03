@@ -36,8 +36,39 @@
         <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
         <button id="get-appointment" type="button" class="btn btn-primary" onclick="getAppointment()" style="margin:10px;display: none;">空き時間</button>
       </div>
+      <pre id="plan-content"></pre>
+      
+      
+      <div class="flex-container">
+        <span class="end-date-wrapper">
+          <select name="block-time" id="block-time" class="selectpicker">>
+            <option value="15">15分</option>
+            <option value="30">30分</option>
+            <option value="45">45分</option>
+            <option value="60">1時間</option>
+            <option value="120">2時間</option>
+            <option value="180">3時間</option>
+            <option value="240">4時間</option>
+            <option value="300">5時間</option>
+            <option value="360">6時間</option>
 
-      <pre id="content"></pre>
+          </select>
+          以上の時間
+        </span>
+        <span class="start-date-wrapper">前後の余裕
+          <select name="time-margin" id="time-margin" class="selectpicker">
+            <option value="0">0分</option>
+            <option value="15">15分</option>
+            <option value="30">30分</option>
+            <option value="45">45分</option>
+            <option value="60">1時間</option>
+          </select>
+        </span>
+        <button id="get-appointment" type="button"  onclick="getAppointment()" style="margin:10px;">空き時間</button>
+      </div>
+
+      <pre id="candidate-content"></pre>
+      
 	</div>
 
     <script src="https://apis.google.com/js/api.js">
