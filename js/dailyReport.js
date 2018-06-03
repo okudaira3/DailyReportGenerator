@@ -147,11 +147,13 @@ function listUpcomingEvents() {
 
         var tempStart = formatDate(new Date(when),'mm月dd日');
         var tempEnd = formatDate(new Date(end),'mm月dd日');
-        when = formatDate(new Date(when),'mm月dd日（ww）HH:MM');
+        
+        var whenStart = formatDate(new Date(when),'mm月dd日（ww）HH:MM');
+        var whenEnd = '';
         if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
-          end = formatDate(new Date(end),'HH:MM');
+          whenEnd = formatDate(new Date(end),'HH:MM');
         } else {
-          end = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
+          whenEnd = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
         }
 
         planList.push(
@@ -163,7 +165,7 @@ function listUpcomingEvents() {
           }
         );
         
-        appendPre('plan-content', when + ' ～ ' + end + '  '+ event.summary);
+        appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '  '+ event.summary);
       }
     } else {
       appendPre('plan-content','予定を見つけられませんでした。');
@@ -275,23 +277,6 @@ function pushTimeIndexArray(value){
 // 候補日から予定を入れれるものをピックアップ
 // function pickupDate(candidateArray, planArray){
 function pickupDate(candidate){
-// '（月）11:00 ～ 12:00  テスト','06月03日（月）11:00 ～ 12:00  テスト'
-  // var planList = [
-  //   {
-  //     startDay:'06月04日（月）',
-  //     startTime:'09:00',
-  //     endDay:'06月04日（月）',
-  //     endTime:'10:00',
-  //   },
-  //   {
-  //     startDay:'06月05日（火）',
-  //     startTime:'13:00',
-  //     endDay:'06月06日（水）',
-  //     endTime:'15:00',
-  //   }
-  // ];
-
-
 
   var tagertDay ;
   var time ;
@@ -428,7 +413,7 @@ function getFreeTime(candidate){
 
   }
 
-  for (var i = 0; i <= startTimeArray.length; i++ ) {
+  for (var i = 0; i < startTimeArray.length; i++ ) {
     appendPre('candidate-content', startTimeArray[i] + ' ～ ' + endTimeArray[i]);
   }
   
