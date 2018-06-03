@@ -43,7 +43,6 @@
       <hr>
       <h3>空き時間</h3>		
       <div class="flex-container">
-        <span class="end-date-wrapper">
           <select name="block-time" id="block-time" class="custom-select">>
             <option value="15">15分</option>
             <option value="30">30分</option>
@@ -55,9 +54,10 @@
             <option value="300">5時間</option>
             <option value="360">6時間</option>
           </select>
-          以上の時間
-        </span>
-        <span class="start-date-wrapper">前後の余裕
+	  <span class="end-date-wrapper">
+              以上の時間
+          </span>
+        
           <select name="time-margin" id="time-margin" class="custom-select">
             <option value="0">0分</option>
             <option value="15">15分</option>
@@ -65,7 +65,8 @@
             <option value="45">45分</option>
             <option value="60">1時間</option>
           </select>
-        </span>
+	  <span class="start-date-wrapper">前後の余裕</span>
+        
         <button id="get-appointment" type="button"  class="btn btn-primary"   onclick="getAppointment()" style="margin:10px;display: none;">空き時間</button>
       </div>
       <div class="text-danger"> 先に予定の一覧を表示してから、空き時間の確認をお願いします。 </div>
