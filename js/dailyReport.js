@@ -9,6 +9,8 @@ var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 var getCalendarButton = document.getElementById('get-calendar-button');
+var getAppointment = document.getElementById('get-appointment-button');
+
 var IS_FREE = true;
 var HAS_PLAN = false;
 var INTERVAL_MINUTE = 1;
@@ -32,6 +34,7 @@ function handleClientLoad() {
   authorizeButton = document.getElementById('authorize-button');
   signoutButton = document.getElementById('signout-button');
   getCalendarButton = document.getElementById('get-calendar-button');
+  getAppointment = document.getElementById('get-appointment-button');
 
   IS_FREE = true;
   HAS_PLAN = false;
@@ -71,11 +74,13 @@ function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'none';
     signoutButton.style.display = 'block';
     getCalendarButton.style.display = 'block';
+    getAppointment.style.display = 'block';
     // listUpcomingEvents();
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
     getCalendarButton.style.display = 'none';
+    getAppointment.style.display = 'none';
   }
 }
 /**
