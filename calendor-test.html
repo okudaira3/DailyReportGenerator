@@ -34,7 +34,6 @@
           <input id="end-date" class="form-control"  type="date">
         </span>
         <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
-        <button id="get-appointment" type="button" class="btn btn-primary" onclick="getAppointment()" style="margin:10px;display: none;">空き時間</button>
       </div>
       <pre id="plan-content"></pre>
       
@@ -64,7 +63,7 @@
             <option value="60">1時間</option>
           </select>
         </span>
-        <button id="get-appointment" type="button"  onclick="getAppointment()" style="margin:10px;">空き時間</button>
+        <button id="get-appointment" type="button"  class="btn btn-primary"   onclick="getAppointment()" style="margin:10px;">空き時間</button>
       </div>
 
       <pre id="candidate-content"></pre>
