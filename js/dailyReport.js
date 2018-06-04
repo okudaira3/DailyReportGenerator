@@ -417,9 +417,11 @@ function getFreeTime(candidate){
     if(isStartedEmptyTime) {
         console.log('***1 ' + day.toString()  + time.toString());
         endTimeArray.push( time.toString());
-        lastTimeIsFree = null;
     }
+
+    // 1日の終わりに諸々リセット
     isStartedEmptyTime = false;
+    lastTimeIsFree = null;
   }
 
   for (var i = 0; i < startTimeArray.length; i++ ) {
