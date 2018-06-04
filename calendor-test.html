@@ -65,6 +65,15 @@
     <div class="text-danger"> 先に予定の一覧を表示してから、空き時間の確認をお願いします。 </div>
     <pre id="candidate-content"></pre> </div>
 
+    <hr>
+    <h3>共有カレンダを見る</h3>
+    <div class="flex-container">
+      <button id="get-shared-button" type="button" class="btn btn-primary" onclick="getSharedCalendar()" style="margin:10px;display: none;">共有取ってくる</button>
+    </div>
+    <div class="text-danger">実験中なので無視してね </div>
+    <pre id="shared-calendar"></pre> </div>
+
+
   <script src="https://apis.google.com/js/api.js"></script>
   <script>
     window.onload = handleClientLoad();
