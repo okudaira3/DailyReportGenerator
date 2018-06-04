@@ -152,7 +152,7 @@ function listUpcomingEvents() {
 
         var tempStart = formatDate(new Date(when),'mm月dd日');
         var tempEnd = formatDate(new Date(end),'mm月dd日');
-        
+
         var whenStart = formatDate(new Date(when),'mm月dd日（ww）HH:MM');
         var whenEnd = '';
         if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
@@ -169,7 +169,7 @@ function listUpcomingEvents() {
             endTime:formatDate(new Date(end),'HH:MM'),
           }
         );
-        
+
         appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '  '+ event.summary);
       }
     } else {
@@ -207,7 +207,7 @@ function getAppointment(){
   // 前回分の除去
   var element = document.getElementById('candidate-content');
   element.textContent = null;
-  
+
   var candidate = generateTerm();
   candidate = pickupDate(candidate);
   getFreeTime(candidate);
@@ -280,7 +280,6 @@ function pushTimeIndexArray(value){
 }
 
 // 候補日から予定を入れれるものをピックアップ
-// function pickupDate(candidateArray, planArray){
 function pickupDate(candidate){
 
   var tagertDay ;
@@ -387,7 +386,7 @@ function getFreeTime(candidate){
 
   var startTimeArray = [];
   var endTimeArray = [];
-  
+
   for (var day in candidate) {
     timeIndex = 0;
     for (var time in candidate[day]) {
@@ -396,12 +395,12 @@ function getFreeTime(candidate){
 
       if(candidate[day][time] == IS_FREE && lastTimeIsFree == HAS_PLAN ){ // 「予定あり」から「なし」に変わったとき(つまり空き時間の開始)
         if(hasBlockTIme(candidate[day],timeIndex,blockTime,true)){
-            // console.log('** 0 ' + day.toString()  + time.toString());
+            console.log('** 0 ' + day.toString()  + time.toString());
             startTimeArray.push( day.toString()  + time.toString());
         }
       } else if(candidate[day][time] == HAS_PLAN && lastTimeIsFree == IS_FREE){ // 「予定なし」から「あり」に変わったとき(つまり空き時間の終了)
         if(hasBlockTIme(candidate[day],timeIndex,blockTime,false)){
-            // console.log('**+1 ' + day.toString()  + time.toString());
+            console.log('**+1 ' + day.toString()  + time.toString());
             endTimeArray.push( time.toString());
         }
       }
@@ -411,7 +410,7 @@ function getFreeTime(candidate){
     }
 
     if(lastTimeIsFree) {
-        // console.log('***1 ' + day.toString()  + time.toString());
+        console.log('***1 ' + day.toString()  + time.toString());
         endTimeArray.push( time.toString());
         lastTimeIsFree = null;
     }
@@ -421,7 +420,6 @@ function getFreeTime(candidate){
   for (var i = 0; i < startTimeArray.length; i++ ) {
     appendPre('candidate-content', startTimeArray[i] + ' ～ ' + endTimeArray[i]);
   }
-  
 
 }
 
@@ -436,8 +434,9 @@ function hasBlockTIme(tagertDay,timeIndex,blockTime,isPrev){
       }
     }
     return true; //連続して予定を確保できた
+    
   } else {
-    if(timeIndex-blockTime < 0){ // まとまった時間を確保したら早出！
+    if(timeIndex-blockTime < 0){ // まとまった時間を確保したら早出
       return false;
     }
     for(var j=blockTime; 0<j; j--){

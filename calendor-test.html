@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Google Calendar API</title>
-    <meta charset='utf-8' />
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<!--Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+<head>
+  <title>Google Calendar API</title>
+  <meta charset='utf-8' />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!--Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!-- CSS -->
-  <link rel="stylesheet" href="./css/site.css" >
-
+  <link rel="stylesheet" href="./css/site.css">
   <!--JS -->
   <script src="./js/util.js"></script>
   <script src="./js/dailyReport.js"></script>
+</head>
+<body>
+  <div class='container'>
+    <p>Google Calendar API</p>
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize-button" type="button" class="btn btn-primary" style="margin:10px; display: none;">google login</button>
+    <button id="signout-button" type="button" class="btn" style="margin:10px;display: none;">Log Out</button>
 
-  </head>
-  <body>
-	<div class='container'>
-      <p>Google Calendar API</p>
+    <hr>
+    <h3>予定一覧</h3>
+    <div class="flex-container">
+      <span class="start-date-wrapper">開始
+       <input id="start-date" class="form-control"  type="date">
+      </span>
+      <span class="end-date-wrapper">終了
+        <input id="end-date" class="form-control"  type="date">
+      </span> <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
+    </div>
+    <div class="text-secondary"> 開始/終了 未指定の場合は今日以降の予定を表示します。 </div>
+    <pre id="plan-content"></pre>
 
-      <!--Add buttons to initiate auth sequence and sign out-->
-      <button id="authorize-button" type="button" class="btn btn-primary" style="margin:10px; display: none;">google login</button>
-      <button id="signout-button" type="button" class="btn" style="margin:10px;display: none;">Log Out</button>
-
-      <hr>
-      <h3>予定一覧</h3>				
-      <div class="flex-container">
-        <span class="start-date-wrapper">開始
-          <input id="start-date" class="form-control"  type="date">
-        </span>
-        <span class="end-date-wrapper">終了
-          <input id="end-date" class="form-control"  type="date">
-        </span>
-        <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
-      </div>
-      <div class="text-secondary"> 開始/終了 未指定の場合は今日以降の予定を表示します。 </div>
-      <pre id="plan-content"></pre>
-      
-      <hr>
-      <h3>空き時間</h3>		
-      <div class="flex-container">
-          <select name="block-time" id="block-time" class="custom-select width-narrow">
+    <hr>
+    <h3>空き時間</h3>
+    <div class="flex-container">
+      <select name="block-time" id="block-time" class="custom-select width-narrow">
             <option value="15">15分</option>
             <option value="30">30分</option>
             <option value="45">45分</option>
@@ -53,32 +48,25 @@
             <option value="240">4時間</option>
             <option value="300">5時間</option>
             <option value="360">6時間</option>
-          </select>
-	  <span class="margin-right">
-              以上の時間
-          </span>
-        
-          <select name="time-margin" id="time-margin" class="custom-select width-narrow">
+      </select>
+      <span class="margin-right">以上の時間</span>
+
+      <select name="time-margin" id="time-margin" class="custom-select width-narrow">
             <option value="0">0分</option>
             <option value="15">15分</option>
             <option value="30">30分</option>
             <option value="45">45分</option>
             <option value="60">1時間</option>
-          </select>
-	  <span class="margin-right">前後の余裕</span>
-        
-        <button id="get-appointment-button" type="button" class="btn btn-primary"   onclick="getAppointment()" style="margin:10px;display: none;">空き時間</button>
-      </div>
-      <div class="text-danger"> 先に予定の一覧を表示してから、空き時間の確認をお願いします。 </div>
-      <pre id="candidate-content"></pre>
-      
-   </div>
+      </select>
+      <span class="margin-right">前後の余裕</span>
 
-    <script src="https://apis.google.com/js/api.js">
-    </script>
+      <button id="get-appointment-button" type="button" class="btn btn-primary" onclick="getAppointment()" style="margin:10px;display: none;">空き時間</button>
+    </div>
+    <div class="text-danger"> 先に予定の一覧を表示してから、空き時間の確認をお願いします。 </div>
+    <pre id="candidate-content"></pre> </div>
 
-    <script >
-      window.onload = handleClientLoad();
-    </script>
-
-  </body>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    window.onload = handleClientLoad();
+  </script>
+</body>
