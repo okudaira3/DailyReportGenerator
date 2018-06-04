@@ -10,7 +10,6 @@ var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 var getCalendarButton = document.getElementById('get-calendar-button');
 var getAppointmentButton = document.getElementById('get-appointment-button');
-var getSharedCalendarButton = document.getElementById('get-shared-button');
 
 var IS_FREE = true;
 var HAS_PLAN = false;
@@ -36,8 +35,7 @@ function handleClientLoad() {
   signoutButton = document.getElementById('signout-button');
   getCalendarButton = document.getElementById('get-calendar-button');
   getAppointmentButton = document.getElementById('get-appointment-button');
-  getSharedCalendarButton = document.getElementById('get-shared-button');
-
+  
   IS_FREE = true;
   HAS_PLAN = false;
   INTERVAL_MINUTE = 1;
@@ -465,11 +463,3 @@ function hasBlockTIme(tagertDay,timeIndex,blockTime,isPrev){
 //******************
 // 空き時間取得ここまで
 //******************
-
-
-function getSharedCalendar(){
-  gapi.client.calendar.events.list().then(function(response) {
-      appendPre('plan-content',JSON.stringify(response));
-  });
-
-}
