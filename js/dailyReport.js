@@ -35,7 +35,7 @@ function handleClientLoad() {
   signoutButton = document.getElementById('signout-button');
   getCalendarButton = document.getElementById('get-calendar-button');
   getAppointmentButton = document.getElementById('get-appointment-button');
-  
+
   IS_FREE = true;
   HAS_PLAN = false;
   INTERVAL_MINUTE = 1;
@@ -132,8 +132,8 @@ function listUpcomingEvents() {
 
   gapi.client.calendar.events.list(condition).then(function(response) {
     // 前回分の除去
-    var element = document.getElementById('plan-content');
-    element.textContent = null;
+    document.getElementById('plan-content').textContent = null;
+    document.getElementById('candidate-content').textContent = null;
 
     var events = response.result.items;
     if (events.length > 0) {
@@ -212,9 +212,14 @@ function getAppointment(){
   var element = document.getElementById('candidate-content');
   element.textContent = null;
 
-  var candidate = generateTerm();
-  candidate = pickupDate(candidate);
-  getFreeTime(candidate);
+  if(planList.length === 0){
+    appendPre('candidate-content', 'まずは予定を取得してください');
+  } else {
+    var candidate = generateTerm();
+    candidate = pickupDate(candidate);
+    getFreeTime(candidate);
+  }
+
   //console.log(JSON.stringify(candidate));
 }
 
