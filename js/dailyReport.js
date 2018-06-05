@@ -283,7 +283,7 @@ function generateTime(){
 }
 
 function pushTimeIndexArray(value){
-  if (! hasTimeIndexArray ){
+  if (! hasTimeIndexArray ){ // XX時YY分は何番目だよってindexは一回作ったらいいので、global変数で見るっていう頭の悪さよ、、、
     timeIndexArray.push(value);
   }
 }
