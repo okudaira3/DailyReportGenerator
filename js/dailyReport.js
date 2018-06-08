@@ -168,7 +168,9 @@ function listUpcomingEvents() {
 // googleカレンダーから予定を取得する
 function getEventFromGoogleCalendar(term,callback) {
   var condition = getCondeition(term);
-  gapi.client.calendar.events.list(condition).then(callback(response));
+  gapi.client.calendar.events.list(condition).then(function(response){
+    callback(response);
+  });
 }
 
 
