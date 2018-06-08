@@ -23,19 +23,6 @@
     <button id="signout-button" type="button" class="btn" style="margin:10px;display: none;">Log Out</button>
 
     <hr>
-    <h3>予定一覧</h3>
-    <div class="flex-container">
-      <span class="start-date-wrapper">開始
-       <input id="start-date" class="form-control"  type="date">
-      </span>
-      <span class="end-date-wrapper">終了
-        <input id="end-date" class="form-control"  type="date">
-      </span> <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
-    </div>
-    <div class="text-secondary"> 開始/終了 未指定の場合は今日以降の予定を表示します。 </div>
-    <pre id="plan-content"></pre>
-
-    <hr>
     <h3>空き時間</h3>
     <h5>対象期間</h5>
     <div class="flex-container">
@@ -83,6 +70,21 @@
     </div>
 
     <pre id="candidate-content"></pre> </div>
+
+    <hr>
+    <h3>予定一覧</h3>
+    <div class="flex-container">
+      <span class="start-date-wrapper">開始
+       <input id="start-date" class="form-control"  type="date">
+      </span>
+      <span class="end-date-wrapper">終了
+        <input id="end-date" class="form-control"  type="date">
+      </span> <button id="get-calendar-button" type="button" class="btn btn-primary" onclick="listUpcomingEvents()" style="margin:10px;display: none;">予定の取得</button>
+    </div>
+    <div class="text-secondary"> 開始/終了 未指定の場合は今日以降の予定を表示します。 </div>
+    <pre id="plan-content"></pre>
+
+
 
   <script src="https://apis.google.com/js/api.js"></script>
   <script>
