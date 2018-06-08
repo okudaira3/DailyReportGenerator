@@ -125,7 +125,6 @@ function listUpcomingEvents() {
   var callback = function(response) {
     // 前回分の除去
     document.getElementById('plan-content').textContent = null;
-    document.getElementById('candidate-content').textContent = null;
 
     var events = response.result.items;
     if (events.length > 0) {
@@ -233,6 +232,10 @@ function getAppointment(){
 }
 
 function addPlanList(response){
+
+  // 初期化
+  planList = [];
+
   var events = response.result.items;
   if (events.length > 0) {
 
