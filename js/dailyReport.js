@@ -116,21 +116,13 @@ function listUpcomingEvents() {
   var starDate = document.getElementById('start-date').value;
   var endDate = document.getElementById('end-date').value;
 
-  var condition = getCondeition(starDate,endDate);
+  var term = {
+    'starDate':starDate,
+    'endDate':endDate,
+  };
 
-  if(starDate){
-    condition.timeMin = (new Date(starDate)).toISOString();
-  } else {
-    condition.timeMin = (new Date()).toISOString();
-  }
-  if(endDate){
-    var endTime = new Date(endDate);
-    endTime = new Date(endTime.setHours(23));
-    endTime = new Date(endTime.setMinutes(59));
-    condition.timeMax = (endTime).toISOString();
-  }
-
-  gapi.client.calendar.events.list(condition).then(function(response) {
+  // 予定取得後のコールバック
+  var callback = function(response) {
     // 前回分の除去
     document.getElementById('plan-content').textContent = null;
     document.getElementById('candidate-content').textContent = null;
@@ -161,25 +153,28 @@ function listUpcomingEvents() {
           whenEnd = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
         }
 
-        planList.push(
-          {
-            startDay: formatDate(new Date(when),'mm月dd日（ww）'),
-            startTime:formatDate(new Date(when),'HH:MM'),
-            endDay:formatDate(new Date(end),'mm月dd日（ww）'),
-            endTime:formatDate(new Date(end),'HH:MM'),
-          }
-        );
-
         appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '  '+ event.summary);
       }
     } else {
       appendPre('plan-content','予定を見つけられませんでした。');
     }
-  });
+  };
+
+  // googleカレンダーから予定を取得する
+  getEventFromGoogleCalendar(term,callback);
+
 }
 
+// googleカレンダーから予定を取得する
+function getEventFromGoogleCalendar(term,callback) {
+  var condition = getCondeition(term);
+  gapi.client.calendar.events.list(condition).then(callback(response));
+}
+
+
+
 // 検索条件を作成
-function getCondeition(starDate,endDate){
+function getCondeition(term){
 
   var condition = {
     'calendarId': 'primary',
@@ -189,16 +184,16 @@ function getCondeition(starDate,endDate){
     'orderBy': 'startTime'
   };
 
-  if(starDate){
-    condition.timeMin = (new Date(starDate)).toISOString();
+  if(term.starDate){
+    condition.timeMin = (new Date(term.starDate)).toISOString();
   } else {
     condition.timeMin = (new Date()).toISOString();
   }
-  if(endDate){
-    var endTime = new Date(endDate);
-    endTime = new Date(endTime.setHours(23));
-    endTime = new Date(endTime.setMinutes(59));
-    condition.timeMax = (endTime).toISOString();
+  if(term.endDate){
+    var endTime = new Date(term.endDate);
+    endTime = new Date(term.endTime.setHours(23));
+    endTime = new Date(term.endTime.setMinutes(59));
+    condition.timeMax = (term.endTime).toISOString();
   }
   return condition;
 }
@@ -212,36 +207,81 @@ function getAppointment(){
   var element = document.getElementById('candidate-content');
   element.textContent = null;
 
-  if(planList.length === 0){
-    appendPre('candidate-content', 'まずは予定を取得してください');
-  } else {
-    var candidate = generateTerm();
+  var callback = function(result){
+    addPlanList(result);
+    var candidate = generateTerm(term);
     candidate = pickupDate(candidate);
     getFreeTime(candidate);
-  }
-
-  //console.log(JSON.stringify(candidate));
-}
-
-// 調整対象となる日を取得する
-// キー：日、時間ごとの予定有無JSON
-function generateTerm(){
+  };
 
   var TWO_WEEK = 14;
-
-  var starDate = document.getElementById('start-date').value;
-  var endDate = document.getElementById('end-date').value;
+  var starDate = document.getElementById('appointment-start-date').value;
+  var endDate = document.getElementById('appointment-end-date').value;
 
   starDate = starDate? new Date(starDate) : new Date();
   endDate = endDate? new Date(endDate) : new Date(new Date().setDate(new Date().getDate() + TWO_WEEK));
 
+  var term = {
+    'starDate':starDate,
+    'endDate':endDate,
+  };
+
+  getEventFromGoogleCalendar(term,callback) ;
+
+}
+
+function addPlanList(response){
+  var events = response.result.items;
+  if (events.length > 0) {
+
+    for (i = 0; i < events.length; i++) {
+      var event = events[i];
+      var when = event.start.dateTime;
+      var end = event.end.dateTime;
+
+      if (!when) {
+        when = event.start.date;
+      }
+      if (!end) {
+        end = event.end.date;
+      }
+
+      var tempStart = formatDate(new Date(when),'mm月dd日');
+      var tempEnd = formatDate(new Date(end),'mm月dd日');
+
+      var whenStart = formatDate(new Date(when),'mm月dd日（ww）HH:MM');
+      var whenEnd = '';
+      if(tempStart === tempEnd){  // 開始日と終了日が同じ場合
+        whenEnd = formatDate(new Date(end),'HH:MM');
+      } else {
+        whenEnd = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
+      }
+
+      planList.push(
+        {
+          startDay: formatDate(new Date(when),'mm月dd日（ww）'),
+          startTime:formatDate(new Date(when),'HH:MM'),
+          endDay:formatDate(new Date(end),'mm月dd日（ww）'),
+          endTime:formatDate(new Date(end),'HH:MM'),
+        }
+      );
+
+      appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '  '+ event.summary);
+    }
+  }
+}
+
+// 調整対象となる日を取得する
+// キー：日、時間ごとの予定有無JSON
+function generateTerm(startEnd){
+
   // 開始日から終了日までの日数を計算
-  var term = endDate.getTime() -starDate.getTime();
+  var term = startEnd.endDate.getTime() - startEnd.starDate.getTime();
   term = Math.ceil(term / 1000 / 60 / 60 /24); // ミリ秒 → 日
 
   var candidate = {};
   for (var i = 0; i <= term; i++){
-    var tempDate = new Date().setDate(starDate.getDate() + i);
+    var tempDate = new Date().setDate(startEnd.starDate.getDate() + i);
     var key = formatDate(tempDate,'mm月dd日（ww）');
 
     candidate[key]=generateTime();  // キー：日付、値：予定を入れる候補となる時間
@@ -258,25 +298,34 @@ function generateTime(){
 
   var count_per_hour = 60 / INTERVAL_MINUTE;
 
-  var startTime = 9;
-  var endTime = 20;
+  var startTime = document.getElementById('appointment-start-time').value;
+  var endTime = document.getElementById('appointment-end-time').value;
+
+  var startHour = startTime.substring(0, 2);
+  var endHour = endTime.substring(0, 2);
+  var startMinute = startTime.substring(3, 5);
+  var endMinute = endTime.substring(3, 5);
 
   var candidate = {};
-  for (var i = startTime; i < endTime; i++){  // 「XX時YY分」のXX時
-    var hour = ('0' + i.toString()).slice(-2);
-    candidate[ hour + ':00'] = IS_FREE;
-    pushTimeIndexArray(hour + ':00');
+  for (var i = parseInt(startHour, 10); i <= endHour; i++){  // 「XX時YY分」のXX時
 
-    for (var j = INTERVAL_MINUTE; j < INTERVAL_MINUTE * count_per_hour ; j=j+INTERVAL_MINUTE){ // 「XX時YY分」のYY分
+    var hour = ('0' + i.toString()).slice(-2);
+
+    var firstMinute = 0;
+    if(i === parseInt(startHour, 10) ){ // 添字が開始時刻の場合は画面の値をセット
+      firstMinute = parseInt(startMinute, 10);
+    }
+
+    for (var j = firstMinute; j < INTERVAL_MINUTE * count_per_hour ; j=j+INTERVAL_MINUTE){ // 「XX時YY分」のYY分
       var minute = ('0' + j.toString()).slice(-2);
 
       candidate[ hour + ':' + minute] = IS_FREE;
       pushTimeIndexArray(hour + ':' + minute);
+      if(i === parseInt(endHour, 10) && parseInt(endMinute, 10) <= minute ){ // 添字が終了時刻の場合は画面の値でExit
+        break;
+      }
     }
   }
-
-  candidate[(endTime).toString() + ':00' ] = IS_FREE;
-  pushTimeIndexArray((endTime).toString() + ':00');
 
   hasTimeIndexArray = true;
   return candidate;

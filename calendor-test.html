@@ -37,6 +37,25 @@
 
     <hr>
     <h3>空き時間</h3>
+    <h5>対象期間</h5>
+    <div class="flex-container">
+      <span class="start-date-wrapper">開始日
+       <input id="appointment-start-date" class="form-control"  type="date">
+      </span>
+      <span class="end-date-wrapper">終了日
+        <input id="appointment-end-date" class="form-control"  type="date">
+      </span>
+    </div>
+    <div class="flex-container">
+      <span class="start-date-wrapper">開始時刻
+       <input id="appointment-start-time" class="form-control"  type="time" value="09:00:00">
+      </span>
+      <span class="end-date-wrapper">終了時刻
+        <input id="appointment-end-time" class="form-control" type="time" value="17:30:00">
+      </span>
+    </div>
+
+    <h5>オプション</h5>
     <div class="flex-container">
       <select name="block-time" id="block-time" class="custom-select width-narrow">
             <option value="15">15分</option>
@@ -62,7 +81,7 @@
 
       <button id="get-appointment-button" type="button" class="btn btn-primary" onclick="getAppointment()" style="margin:10px;display: none;">空き時間</button>
     </div>
-    <div class="text-danger"> 先に予定の一覧を表示してから、空き時間の確認をお願いします。 </div>
+
     <pre id="candidate-content"></pre> </div>
 
   <script src="https://apis.google.com/js/api.js"></script>
