@@ -193,9 +193,9 @@ function getCondeition(term){
   }
   if(term.endDate){
     var endTime = new Date(term.endDate);
-    endTime = new Date(term.endTime.setHours(23));
-    endTime = new Date(term.endTime.setMinutes(59));
-    condition.timeMax = (term.endTime).toISOString();
+    endTime = new Date(endTime.setHours(23));
+    endTime = new Date(endTime.setMinutes(59));
+    condition.timeMax = (endTime).toISOString();
   }
   return condition;
 }
