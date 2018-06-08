@@ -207,6 +207,9 @@ function getAppointment(){
   // 前回分の除去
   var element = document.getElementById('candidate-content');
   element.textContent = null;
+  hasTimeIndexArray = false;
+  timeIndexArray = [];
+  planList = [];
 
   var callback = function(result){
     addPlanList(result);
@@ -232,9 +235,6 @@ function getAppointment(){
 }
 
 function addPlanList(response){
-
-  // 初期化
-  planList = [];
 
   var events = response.result.items;
   if (events.length > 0) {
