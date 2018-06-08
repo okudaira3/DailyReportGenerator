@@ -299,6 +299,7 @@ function generateTerm(startEnd){
 function generateTime(){
 
   var count_per_hour = 60 / INTERVAL_MINUTE;
+  var LUNCH_TIME = 12;
 
   var startTime = document.getElementById('appointment-start-time').value;
   var endTime = document.getElementById('appointment-end-time').value;
@@ -319,10 +320,17 @@ function generateTime(){
     }
 
     for (var j = firstMinute; j < INTERVAL_MINUTE * count_per_hour ; j=j+INTERVAL_MINUTE){ // 「XX時YY分」のYY分
+
       var minute = ('0' + j.toString()).slice(-2);
 
-      candidate[ hour + ':' + minute] = IS_FREE;
+      if(i === LUNCH_TIME){
+        candidate[ hour + ':' + minute] = HAS_PLAN;
+      } else {
+        candidate[ hour + ':' + minute] = IS_FREE;
+      }
       pushTimeIndexArray(hour + ':' + minute);
+
+
       if(i === parseInt(endHour, 10) && parseInt(endMinute, 10) <= minute ){ // 添字が終了時刻の場合は画面の値でExit
         break;
       }
