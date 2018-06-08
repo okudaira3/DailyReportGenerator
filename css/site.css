@@ -2,12 +2,12 @@
   display: flex;
 }
 
-.end-date-wrapper{
-  margin-left: 10px;
+.margin-top{
+  margin-top:15px;
 }
 
-.end-date-wrapper{
-  margin-left: 10px;
+.margin-left {
+  margin-left: 15px;
 }
 
 .margin-right{
@@ -16,4 +16,9 @@
 
 .flex-container .width-narrow{
   width: 6em;
+}
+
+#block-time,
+#time-margin {
+  display: block;
 }

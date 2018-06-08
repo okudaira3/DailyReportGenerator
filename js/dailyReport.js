@@ -268,7 +268,6 @@ function addPlanList(response){
         }
       );
 
-      appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '  '+ event.summary);
     }
   }
 }
