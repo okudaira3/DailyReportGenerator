@@ -338,7 +338,12 @@ function generateTime(){
       var minute = ('0' + j.toString()).slice(-2);
 
       if(i === LUNCH_TIME){
-        candidate[ hour + ':' + minute] = HAS_PLAN;
+        if(minute == '00'){ // ジャスト12時はお昼休みでない
+          candidate[ hour + ':' + minute] = IS_FREE;
+        } else {
+          candidate[ hour + ':' + minute] = HAS_PLAN;
+        }
+
       } else {
         candidate[ hour + ':' + minute] = IS_FREE;
       }
