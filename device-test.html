@@ -17,13 +17,17 @@
 </head>
 <body>
   <div class='container'>
-    
+    <pre id="content"></pre>
   </div>
 
   <script>
     $(function(){
     	var devinfo = getDeviceInfo();
     	alert('devinfo.model = '+ JSON.stringify(devinfo));
+    	
+		  var pre = document.getElementById('content');
+		  var textContent = document.createTextNode(JSON.stringify(devinfo)+ '\n');
+		  pre.appendChild(textContent);
 	});
   </script>
 </body>
