@@ -8,8 +8,8 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
-var getCalendarButton = document.getElementById('get-calendar-button');
-var getAppointmentButton = document.getElementById('get-appointment-button');
+// var getCalendarButton = document.getElementById('get-calendar-button');
+// var getAppointmentButton = document.getElementById('get-appointment-button');
 
 var IS_FREE = true;
 var HAS_PLAN = false;
@@ -24,18 +24,18 @@ var planList = [];
  */
 function handleClientLoad(clientId,apiKey) {
 
-  if(!clientId){ // APIキーが指定されていない場合
+  if(!clientId){ // クライアントIDが指定されていない場合
   	CLIENT_ID = '686773253686-sfaav9jvk1i4l603k9c394d86tlorhoj.apps.googleusercontent.com';
   } else {
   	CLIENT_ID = clientId;
   }
-  
+
   if(!apiKey){ // APIキーが指定されていない場合
   	API_KEY = 'AIzaSyCc_MmF8KxOgjJgkffQEhXKZiF68VPdV7Y';
   } else {
   	API_KEY = apiKey;
   }
-  
+
   // Array of API discovery doc URLs for APIs used by the quickstart
   DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
   // Authorization scopes required by the API; multiple scopes can be
@@ -85,12 +85,14 @@ function updateSigninStatus(isSignedIn) {
     signoutButton.style.display = 'block';
     getCalendarButton.style.display = 'block';
     getAppointmentButton.style.display = 'block';
+    document.getElementById('calendar-contents').style.display = 'block';
     // listUpcomingEvents();
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
     getCalendarButton.style.display = 'none';
     getAppointmentButton.style.display = 'none';
+    document.getElementById('calendar-contents').style.display = 'none';
   }
 }
 /**

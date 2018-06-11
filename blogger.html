@@ -1,0 +1,94 @@
+<head>
+  <title>Google Calendar API</title>
+
+  <!-- Bootstrap CSS -->
+  <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet"></link>
+  <!--Bootstrap JS -->
+  <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- CSS -->
+  <link href="https://okudaira3.github.io/DailyReportGenerator/css/site.css" rel="stylesheet"></link>
+  <!--JS -->
+  <script src="https://okudaira3.github.io/DailyReportGenerator/js/util.js"></script>
+  <script src="https://okudaira3.github.io/DailyReportGenerator/js/dailyReport.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <span>Googleと連携</span>
+    <button class="btn btn-primary" id="authorize-button" style="display: none; margin: 10px;" type="button">google login</button>
+    <button class="btn" id="signout-button" style="display: none; margin: 10px;" type="button">Log Out</button>
+    <div id='calendar-contents'style="display: none;" >
+      <hr />
+      <h3>空き時間</h3>
+      <div class="flex-container">
+        <span class="start-date-wrapper">開始日
+         <input class="form-control" id="appointment-start-date" type="date" />
+        </span>
+        <span class="margin-left ">終了日
+          <input class="form-control" id="appointment-end-date" type="date" />
+        </span>
+      </div>
+      <div class="text-secondary">
+       未指定の場合は2週間分の空き時間を表示します。
+      </div>
+      <div class="flex-container margin-top">
+        <span class="start-date-wrapper">開始時刻
+         <input class="form-control" id="appointment-start-time" type="time" value="09:00:00" />
+        </span>
+        <span class="margin-left">  終了時刻
+          <input class="form-control" id="appointment-end-time" type="time" value="17:30:00" />
+        </span>
+        <span class="margin-left">
+          <span>確保する時間</span>
+          <select class="custom-select width-narrow" id="block-time" name="block-time">
+                <option value="15">15分</option>
+                <option value="30">30分</option>
+                <option value="45">45分</option>
+                <option value="60">1時間</option>
+                <option value="120">2時間</option>
+                <option value="180">3時間</option>
+                <option value="240">4時間</option>
+                <option value="300">5時間</option>
+                <option value="360">6時間</option>
+          </select>
+        </span>
+        <span class="margin-left">
+          <span class="">前後の余裕</span>
+          <select class="custom-select width-narrow" id="time-margin" name="time-margin">
+                <option value="0">0分</option>
+                <option value="15">15分</option>
+                <option value="30">30分</option>
+                <option value="45">45分</option>
+                <option value="60">1時間</option>
+          </select>
+        </span>
+        <button class="btn btn-primary" id="get-appointment-button" onclick="getAppointment()" style="margin: 15px;" type="button">空き時間</button>
+      </div>
+      <!-- 空き時間があったら追加するところ -->
+      <pre id="candidate-content"></pre>
+      <hr />
+      <h3>予定一覧</h3>
+      <div class="flex-container">
+        <span class="start-date-wrapper">開始
+         <input class="form-control" id="start-date" type="date" />
+        </span>
+        <span class="margin-left ">終了
+          <input class="form-control" id="end-date" type="date" />
+        </span> <button class="btn btn-primary" id="get-calendar-button" onclick="listUpcomingEvents()" style=" margin: 10px;" type="button">予定の取得</button>
+      </div>
+      <div class="text-secondary">
+       未指定の場合は今日以降の予定を表示します。
+      </div>
+      <!-- 予定を追加するところ -->
+      <pre id="plan-content"></pre>
+    </div>
+  </div>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    var a = null;
+    var c = '686773253686-92ju6ugm9qkb43ohds816h6b6ctst4cl.apps.googleusercontent.com';
+    window.onload = handleClientLoad(c,a);
+  </script>
+</body>
