@@ -338,12 +338,7 @@ function generateTime(){
       var minute = ('0' + j.toString()).slice(-2);
 
       if(i === LUNCH_TIME){
-        if(minute == '00'){ // ジャスト12時はお昼休みでない
-          candidate[ hour + ':' + minute] = IS_FREE;
-        } else {
-          candidate[ hour + ':' + minute] = HAS_PLAN;
-        }
-
+        candidate[ hour + ':' + minute] = HAS_PLAN;
       } else {
         candidate[ hour + ':' + minute] = IS_FREE;
       }
@@ -524,7 +519,9 @@ function hasBlockTIme(tagertDay,timeIndex,blockTime,isPrev){
     }
     for(var i=blockTime; 0<=i; i--){
       if (tagertDay[timeIndexArray[(timeIndex+i)]] == HAS_PLAN){  // まとまった時間内に予定がある場合
-        return false;
+        if(timeIndexArray[(timeIndex+i)] !== '12:00'){ // お昼休み入り際はセーフ
+            return false;
+        }
       }
     }
     return true; //連続して予定を確保できた
