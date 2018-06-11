@@ -40,7 +40,9 @@
         <span class="margin-left">  終了時刻
           <input class="form-control" id="appointment-end-time" type="time" value="17:30:00" />
         </span>
-        <span class="margin-left">
+      </div>
+      <div class="flex-container margin-top">
+        <span class="">
           <span>確保する時間</span>
           <select class="custom-select width-narrow" id="block-time" name="block-time">
                 <option value="15">15分</option>
@@ -64,7 +66,9 @@
                 <option value="60">1時間</option>
           </select>
         </span>
-        <button class="btn btn-primary" id="get-appointment-button" onclick="getAppointment()" style="margin: 15px;" type="button">空き時間</button>
+      </div>
+      <div class="margin-top">
+        <button class="btn btn-primary" id="get-appointment-button" onclick="getAppointment()"  type="button">空き時間</button>
       </div>
       <!-- 空き時間があったら追加するところ -->
       <pre id="candidate-content"></pre>
@@ -76,10 +80,13 @@
         </span>
         <span class="margin-left ">終了
           <input class="form-control" id="end-date" type="date" />
-        </span> <button class="btn btn-primary" id="get-calendar-button" onclick="listUpcomingEvents()" style=" margin: 10px;" type="button">予定の取得</button>
+        </span>
       </div>
       <div class="text-secondary">
        未指定の場合は今日以降の予定を表示します。
+      </div>
+      <div class="margin-top">
+        <button class="btn btn-primary" id="get-calendar-button" onclick="listUpcomingEvents()"  type="button">予定の取得</button>
       </div>
       <!-- 予定を追加するところ -->
       <pre id="plan-content"></pre>
