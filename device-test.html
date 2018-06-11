@@ -26,7 +26,7 @@
     	alert('devinfo.model = '+ JSON.stringify(devinfo));
     	
 		  var pre = document.getElementById('content');
-		  var textContent = document.createTextNode(JSON.stringify(devinfo)+ '\n');
+		  var textContent = document.createTextNode( navigator.userAgent+ '\n');
 		  pre.appendChild(textContent);
 	});
   </script>
