@@ -14,6 +14,7 @@
   <!--JS -->
   <script src="./js/util.js"></script>
   <script src="./js/device.js"></script>
+  <script src="./js/deviceInfo.js"></script>
 </head>
 <body>
   <div class='container'>
@@ -23,12 +24,40 @@
   </div>
 
   <script>
+
+  
     $(function(){
+    	
+    	// ユーザエージェントから端末情報を取得
     	var devinfo = getDeviceInfo();
-    	alert('devinfo.model = '+ devinfo.os);
-	  var pre = document.getElementById('content');
-	  var textContent = document.createTextNode( devinfo.os + '\n');
-	  pre.appendChild(textContent);
+    	var model = devinfo.os
+    	var modelArray = devinfo.split(/_|/-); // 「_」or「-」で分割(例：ASUS_XXX → ASUSとXXXに分割)
+
+    	// キー：端末モデル、値：URLのJSONを取得(例：SO-03K：https://item.rakuten.co.jp/x-mall/c/0000000245/)
+    	var deviceJson = getDeviceInfoJson();
+		
+		// HTMLを追記する要素
+		var pre = document.getElementById('content');
+		var url = null;
+	
+		modelArray.some(functionmodelvalue) {
+		    
+		  // 端末モデルをキーにURLを取得
+		  url = deviceJson[model];
+		  if(url){ // URLが取得できた場合
+	    	var textContent = document.createTextNode( devinfo.os + '：' + url);
+	    	pre.appendChild(textContent);
+	    	return true;
+		  }
+		});
+    	
+    	if(!url){ // URLを取得できなかった場合
+    		var textContent = document.createTextNode( devinfo.os);
+	    	pre.appendChild(textContent);
+    	}
+    	
 	});
+	
+	
   </script>
 </body>
