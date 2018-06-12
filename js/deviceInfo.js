@@ -77,6 +77,7 @@ function getDeviceInfoJson(){
 		"ZS551KL":"https://item.rakuten.co.jp/x-mall/c/0000000234/",
 		"ZS570KL":"https://item.rakuten.co.jp/x-mall/c/0000000199/",
 		"ZX551ML":"https://item.rakuten.co.jp/x-mall/c/0000000187/",
+	  "G900P":"TESSSSSSSSSSSSSSSSST",
   };
 
   return obj;
