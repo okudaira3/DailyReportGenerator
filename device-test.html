@@ -40,14 +40,14 @@
 		var pre = document.getElementById('content');
 		var url = null;
 	
-		modelArray.some(functionmodelvalue) {
+		modelArray.some(function(model) {
 		    
 		  // 端末モデルをキーにURLを取得
 		  url = deviceJson[model];
 		  if(url){ // URLが取得できた場合
-	    	var textContent = document.createTextNode( devinfo.os + '：' + url);
-	    	pre.appendChild(textContent);
-	    	return true;
+			  var textContent = document.createTextNode( devinfo.os + '：' + url);
+			  pre.appendChild(textContent);
+			  return true;
 		  }
 		});
     	
