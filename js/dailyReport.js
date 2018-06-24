@@ -483,7 +483,7 @@ function getFreeTime(candidate){
             isStartedEmptyTime = true;
         }
       } else if(candidate[day][time] == HAS_PLAN && lastTimeIsFree == IS_FREE){ // 「予定なし」から「あり」に変わったとき(つまり空き時間の終了)
-        if(hasBlockTIme(candidate[day],timeIndex,blockTime,false)){
+        if(hasBlockTIme(candidate[day],timeIndex,blockTime,false)  && isStartedEmptyTime){
             console.log('**+1 ' + day.toString()  + time.toString());
             endTimeArray.push( time.toString());
             isStartedEmptyTime = false;
