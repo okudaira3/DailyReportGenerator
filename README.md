@@ -1,2 +1,2 @@
 # DailyReportGenerator
-グーグル可憐だから予定をとってくるよ
+googleカレンダーから予定をとってくるよ
