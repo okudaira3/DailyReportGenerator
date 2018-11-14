@@ -164,7 +164,7 @@ function listUpcomingEvents() {
           whenEnd = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
         }
 
-        appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '  '+ event.summary);
+        appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '\t'+ event.summary+ '\t'+ event.description);
       }
     } else {
       appendPre('plan-content','予定を見つけられませんでした。');
