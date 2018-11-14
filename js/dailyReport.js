@@ -163,8 +163,9 @@ function listUpcomingEvents() {
         } else {
           whenEnd = formatDate(new Date(end),'mm月dd日（ww）HH:MM');
         }
-
-        appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '\t'+ event.summary+ '\t'+ event.description);
+        var description = '';
+        if (event.description) description = event.description
+        appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '\t'+ event.summary+ '\t'+ description);
       }
     } else {
       appendPre('plan-content','予定を見つけられませんでした。');
