@@ -185,10 +185,9 @@ function listUpcomingEvents() {
         td3.innerHTML = event.summary;
         tr.appendChild(td3);
 
-        var tbody = document.getElementById(elementId);
+        var tbody = document.getElementById('plan-table');
         tbody.appendChild(tr);
 
-        appendTbody('plan-table', row);
       }
     } else {
       appendPre('plan-content','予定を見つけられませんでした。');
