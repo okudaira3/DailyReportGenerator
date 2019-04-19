@@ -181,19 +181,16 @@ function listUpcomingEvents() {
         
         var td1 = document.createElement('td');
         td1.style.whiteSpace = 'nowrap';
-        td1.className = 'col-md-4';
         td1.innerHTML = whenStart + ' ～ ' + whenEnd;
         tr.appendChild(td1);
         
         var td2 = document.createElement('td');
         td2.innerHTML = event.summary;
-        td2.className = 'col-md-4';
         tr.appendChild(td2);
         
         var td3 = document.createElement('td');
         td3.innerHTML = description;
         td3.style.whiteSpace = 'pre';
-        td3.className = 'col-md-4';
         tr.appendChild(td3);
 
         var tbody = document.getElementById('plan-table');
