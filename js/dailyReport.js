@@ -120,10 +120,6 @@ function appendPre(elementId,message) {
   pre.appendChild(textContent);
 }
 
-function appendTbody(elementId,row) {
-    var tbody = document.getElementById(elementId);
-    tbody.appendChild(row);
-  }
 
 /**
  * Print the summary and start datetime/date of the next ten events in
@@ -178,11 +174,19 @@ function listUpcomingEvents() {
         var description = '';
         if (event.description) description = event.description
         
-        var row = '<tr>' ;
-        row += '<td>' + whenStart + ' ～ ' + whenEnd  +'</td>';
-        row += '<td>' + event.summary + '</td>'
-        row += '<td>' + description + '</td>' ;
-        row += '</tr>' ;
+        var tr = document.createElement('tr');
+        var td1 = document.createElement('td');
+        td1.innerHTML = whenStart + ' ～ ' + whenEnd;
+        tr.appendChild(td1);
+        var td2 = document.createElement('td');
+        td2.innerHTML = event.summary;
+        tr.appendChild(td2);
+        var td3 = document.createElement('td');
+        td3.innerHTML = event.summary;
+        tr.appendChild(td3);
+
+        var tbody = document.getElementById(elementId);
+        tbody.appendChild(tr);
 
         appendTbody('plan-table', row);
       }
