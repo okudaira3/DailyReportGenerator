@@ -150,6 +150,8 @@ function listUpcomingEvents() {
     if (events.length > 0) {
 
       for (i = 0; i < events.length; i++) {
+        
+        // == 表示内容の取得 ==
         var event = events[i];
         var when = event.start.dateTime;
         var end = event.end.dateTime;
@@ -173,17 +175,22 @@ function listUpcomingEvents() {
         }
         var description = '';
         if (event.description) description = event.description
-        
+
+        // == テーブルへ出力 ==
         var tr = document.createElement('tr');
+        
         var td1 = document.createElement('td');
         td1.style.whiteSpace = 'nowrap';
         td1.innerHTML = whenStart + ' ～ ' + whenEnd;
         tr.appendChild(td1);
+        
         var td2 = document.createElement('td');
         td2.innerHTML = event.summary;
         tr.appendChild(td2);
+        
         var td3 = document.createElement('td');
         td3.innerHTML = description;
+        td3.style.whiteSpace = 'pre';
         tr.appendChild(td3);
 
         var tbody = document.getElementById('plan-table');
