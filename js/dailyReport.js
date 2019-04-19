@@ -176,13 +176,14 @@ function listUpcomingEvents() {
         
         var tr = document.createElement('tr');
         var td1 = document.createElement('td');
+        td1.style.whiteSpace = 'nowrap';
         td1.innerHTML = whenStart + ' ～ ' + whenEnd;
         tr.appendChild(td1);
         var td2 = document.createElement('td');
         td2.innerHTML = event.summary;
         tr.appendChild(td2);
         var td3 = document.createElement('td');
-        td3.innerHTML = event.summary;
+        td3.innerHTML = description;
         tr.appendChild(td3);
 
         var tbody = document.getElementById('plan-table');
