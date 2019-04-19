@@ -1,3 +1,4 @@
+
 // Client ID and API key from the Developer Console
 var CLIENT_ID = '686773253686-sfaav9jvk1i4l603k9c394d86tlorhoj.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyCc_MmF8KxOgjJgkffQEhXKZiF68VPdV7Y';
@@ -118,6 +119,12 @@ function appendPre(elementId,message) {
   var textContent = document.createTextNode(message + '\n');
   pre.appendChild(textContent);
 }
+
+function appendTbody(elementId,row) {
+    var tbody = document.getElementById(elementId);
+    tbody.appendChild(row);
+  }
+
 /**
  * Print the summary and start datetime/date of the next ten events in
  * the authorized user's calendar. If no events are found an
@@ -136,7 +143,12 @@ function listUpcomingEvents() {
   // 予定取得後のコールバック
   var callback = function(response) {
     // 前回分の除去
-    document.getElementById('plan-content').textContent = null;
+    // document.getElementById('plan-content').textContent = null;
+    var table = document.getElementById("table");
+    var rowLen = table.rows.length;
+    for (var i = rowLen-1; i > 0; i--) {
+        table.deleteRow(i);
+    }
 
     var events = response.result.items;
     if (events.length > 0) {
@@ -165,17 +177,25 @@ function listUpcomingEvents() {
         }
         var description = '';
         if (event.description) description = event.description
-        appendPre('plan-content', whenStart + ' ～ ' + whenEnd + '\t'+ event.summary+ '\t'+ description);
+        
+        var row = '<tr>' ;
+        row += '<td>' + whenStart + ' ～ ' + whenEnd  +'</td>';
+        row += '<td>' + event.summary + '</td>'
+        row += '<td>' + description + '</td>' ;
+        row += '</tr>' ;
+
+        appendTbody('plan-table', row);
       }
     } else {
       appendPre('plan-content','予定を見つけられませんでした。');
     }
   };
-
   // googleカレンダーから予定を取得する
   getEventFromGoogleCalendar(term,callback);
 
 }
+
+
 
 // googleカレンダーから予定を取得する
 function getEventFromGoogleCalendar(term,callback) {
