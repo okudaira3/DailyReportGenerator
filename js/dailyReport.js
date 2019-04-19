@@ -186,6 +186,7 @@ function listUpcomingEvents() {
         
         var td2 = document.createElement('td');
         td2.innerHTML = event.summary;
+        td1.style.whiteSpace = 'nowrap';
         tr.appendChild(td2);
         
         var td3 = document.createElement('td');
