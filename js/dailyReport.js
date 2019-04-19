@@ -144,7 +144,7 @@ function listUpcomingEvents() {
   var callback = function(response) {
     // 前回分の除去
     // document.getElementById('plan-content').textContent = null;
-    var table = document.getElementById("table");
+    var table = document.getElementById('plan-table');
     var rowLen = table.rows.length;
     for (var i = rowLen-1; i > 0; i--) {
         table.deleteRow(i);
