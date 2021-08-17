@@ -1,2 +1,3 @@
 # DailyReportGenerator
 googleカレンダーから予定をとってくるよ
+git SSHのテストだよ
